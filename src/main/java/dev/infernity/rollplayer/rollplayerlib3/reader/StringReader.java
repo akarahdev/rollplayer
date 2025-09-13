@@ -12,14 +12,28 @@ public class StringReader implements Reader<String, Character> {
         this.string = string;
     }
 
+    public void skipWhitespace() {
+        while(this.peek() != null && Character.isWhitespace(this.peek())) {
+            this.read();
+        }
+    }
+
     @Override
     public Character read() {
-        return this.string.charAt(this.index++);
+        try {
+            return this.string.charAt(this.index++);
+        } catch (StringIndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     @Override
     public Character peek() {
-        return this.string.charAt(this.index);
+        try {
+            return this.string.charAt(this.index);
+        } catch (StringIndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     @Override
@@ -30,6 +44,11 @@ public class StringReader implements Reader<String, Character> {
     @Override
     public int index() {
         return this.index;
+    }
+
+    @Override
+    public void backtrackBy(int amount) {
+        this.index -= amount;
     }
 
     @Override

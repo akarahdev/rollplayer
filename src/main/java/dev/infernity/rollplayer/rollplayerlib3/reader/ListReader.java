@@ -29,4 +29,9 @@ public class ListReader<T, E> implements Reader<List<E>, E> {
     public int index() {
         return this.index;
     }
+
+    @Override
+    public void backtrackBy(int amount) {
+        this.index -= amount;
+    }
 }
